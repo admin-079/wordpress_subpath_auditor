@@ -1,0 +1,5 @@
+html
+.py3
+.vscode
+output*
+__pycache__

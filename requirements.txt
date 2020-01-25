@@ -1,0 +1,14 @@
+certifi==2019.11.28
+chardet==3.0.4
+Click==7.0
+coloredlogs==10.0
+cssselect==1.1.0
+humanfriendly==4.18
+idna==2.8
+lxml==4.4.2
+parsel==1.5.2
+requests==2.22.0
+six==1.14.0
+termcolor==1.1.0
+urllib3==1.25.8
+w3lib==1.21.0
