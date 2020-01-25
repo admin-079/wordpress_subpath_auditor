@@ -24,7 +24,7 @@ import logging
 logger = logging.getLogger("WoSuAu")
 coloredlogs.install(level='INFO', logger=logger)  # DEBUG
 
-FEATURES = ["CR", "ST", "UR", "CO", "PA"]
+FEATURES = ["CR", "ST", "UR", "PA"]
 JSON_SPLIT = "**********JSON_SPLIT**********"
 PHP_DEL = "// WOPLAU_REMOVE"
 DISABLED = "Disabled"
@@ -70,7 +70,7 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
     """\b
     Wordpress Subdir Editor, detect dynamically accesible sources and sinks, then, read the code ! :)
     Example command :
-    python wo_su_au.py -u http://lokal:8000/,http://lokal:8000/wp-login.php \\
+    python wo_su_au.py -u http://lokal:8000/ \\
         -s html/wp-content/plugins \\
         -d ST \\
         -c "COOKIE_NAME=COOKIE_VALUE"
