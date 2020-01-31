@@ -11,7 +11,7 @@ logger = logging.getLogger("WoSuAu")
 coloredlogs.install(level='INFO', logger=logger)
 
 rgx_abspath = r".*defined.*?ABSPATH.*?;.*"
-rgx_comm_long = r".*/\*.*?\*/.*"
+rgx_comm_long = r"/\*.*?\*/"
 rgx_comm_short = r".*//.*"
 
 class DefaultHelp(click.Command):
@@ -39,7 +39,8 @@ def main(self, subdir):
     print("<?php") # For syntax hilight... ;)
     files = glob.glob(subdir + "/**/*.php", recursive=True)
     for file in files:
-        data = open(file).read()
+        logger.debug(file)
+        data = open(file, errors='ignore').read()
 
         # Remove /* */
         comm_long = re.findall(rgx_comm_long, data, re.DOTALL)
