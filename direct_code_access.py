@@ -10,7 +10,7 @@ import re
 logger = logging.getLogger("WoSuAu")
 coloredlogs.install(level='INFO', logger=logger)
 
-rgx_abspath = r".*defined.*?ABSPATH.*?;.*"
+rgx_abspath = r".*defined.*?ABSPATH.*?$"
 rgx_comm_long = r"/\*.*?\*/"
 rgx_comm_short = r".*//.*"
 
@@ -62,6 +62,7 @@ def main(self, subdir):
         abspath = re.search(rgx_abspath, data)
         if abspath:
             data = data[:data.find(abspath.group())]
+        
 
         data = "\n".join([line for line in data.splitlines() if len(line.strip()) != 0])
         data = data.replace("\t", "  ")
