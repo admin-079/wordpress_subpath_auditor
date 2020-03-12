@@ -22,7 +22,6 @@ import coloredlogs
 import logging
 
 logger = logging.getLogger("WoSuAu")
-coloredlogs.install(level='INFO', logger=logger)  # DEBUG
 
 FEATURES = ["CR", "ST", "UR", "PA"]
 JSON_SPLIT = "**********JSON_SPLIT**********"
@@ -65,8 +64,9 @@ class DefaultHelp(click.Command):
 @click.option("-u", "--url", help="URLs to crawl, (identical hostnames), multiple delimiter is ,", required=True, type=str)
 @click.option("-f", "--whitelisted-functions", help="Avoid code instrumentation for useless or broken functions, multiple delimiter=','", required=False, default="", type=str)
 @click.option("-c", "--cookie", help="Specify a cookie for authenticated crawls", default=None, required=False, type=str)
+@click.option("-D", "--debug", help="Enable debugging output", required=False, flag_value=True, default=False, type=bool)
 @click.pass_context
-def main(self, manual_action, disable, subdir, url, whitelisted_functions, cookie):
+def main(self, manual_action, disable, subdir, url, whitelisted_functions, cookie, debug):
     """\b
     Wordpress Subdir Editor, detect dynamically accesible sources and sinks, then, read the code ! :)
     Example command :
@@ -76,6 +76,11 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
         -c "COOKIE_NAME=COOKIE_VALUE"
     """
 
+    if debug:
+        coloredlogs.install(logger=logger, level=logging.DEBUG)
+    else:
+        coloredlogs.install(logger=logger, level=logging.INFO)
+        
     # Clean previous findings, deinstrument for a clean scan
     run(["git", "checkout", "."], cwd="html")
     run(["touch", "html/logs.txt"])
@@ -170,7 +175,7 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
             for i in range(len(content)):
                 line = content[i]
 
-                if not line.strip().startswith("function"):
+                if not " function " in line:
                     continue
 
                 match = fct_decl_regex.search(line)
@@ -271,7 +276,7 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
 
     logger.info("Analysis completed!")
     for fct_name, fct_attrs in functions.items():
-        print(f"\n{fct_name.center(80, '*')}")
+        print("\n" + f" {fct_name} ".center(80, '*'))
         for target in targets:
             if target.name in fct_attrs.fct_code.replace(" ", ""):
                 if target.target_type == TYPE_SINK:

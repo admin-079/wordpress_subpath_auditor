@@ -46,11 +46,11 @@ php_exec.append(Target(CAT_PHP_EXEC, "require_once(", TYPE_SINK, None))
 php_exec.append(Target(CAT_PHP_EXEC, "ReflectionFunction(", TYPE_SINK, None))
 php_exec.append(Target(CAT_PHP_EXEC, "invoke(", TYPE_SINK, None))
 php_exec.append(Target(CAT_PHP_EXEC, "invokeArgs(", TYPE_SINK, None))
-#php_exec += "preg_replace.*/e"
-# $_GET['func_name']($_GET['argument']);
+php_exec.append(Target(CAT_PHP_EXEC, "preg_replace(", TYPE_SINK, None))
+# $func_name($argument);
 
 callbacks = list() # Indexes of callbacks
-#callbacks.append(Target(CAT_CALLBACK, "ob_start(", TYPE_SINK, "# 0,"))
+callbacks.append(Target(CAT_CALLBACK, "ob_start(", TYPE_SINK, "# 0,"))
 callbacks.append(Target(CAT_CALLBACK, "array_diff_uassoc(", TYPE_SINK, "# -1,"))
 callbacks.append(Target(CAT_CALLBACK, "array_diff_ukey(", TYPE_SINK, "# -1,"))
 callbacks.append(Target(CAT_CALLBACK, "array_filter(", TYPE_SINK, "# 1,"))
@@ -134,7 +134,7 @@ filesystem.append(Target(CAT_FILESYST, "copy(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "file_put_contents(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "lchgrp(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "lchown(", TYPE_SINK, None))
-#filesystem.append(Target(CAT_FILESYST, "link(", TYPE_SINK, None)) # Too many false positive
+filesystem.append(Target(CAT_FILESYST, "link(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "mkdir(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "move_uploaded_file(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "rename(", TYPE_SINK, None))

@@ -7,8 +7,7 @@ import coloredlogs
 import logging
 import re
 
-logger = logging.getLogger("WoSuAu")
-coloredlogs.install(level='INFO', logger=logger)
+logger = logging.getLogger("DiCoAc")
 
 rgx_abspath = r".*defined.*?ABSPATH.*?$"
 rgx_comm_long = r"/\*.*?\*/"
@@ -29,13 +28,19 @@ class DefaultHelp(click.Command):
 
 @click.command(cls=DefaultHelp)
 @click.option("-s", "--subdir", help="Subdir to audit", required=True, type=str)
+@click.option("-D", "--debug", help="Enable debugging output", required=False, flag_value=True, default=False, type=bool)
 @click.pass_context
-def main(self, subdir):
+def main(self, subdir, debug):
     """\b
     Find out if a file contains direct executable php code. 
     Example command :
         python direct_code_access.py -s html/wp-content/plugins
     """
+    if debug:
+            coloredlogs.install(logger=logger, level=logging.DEBUG)
+    else:
+        coloredlogs.install(logger=logger, level=logging.INFO)
+    
     print("<?php") # For syntax hilight... ;)
     files = glob.glob(subdir + "/**/*.php", recursive=True)
     for file in files:
