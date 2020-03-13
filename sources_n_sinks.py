@@ -299,9 +299,11 @@ direct_input = list()
 direct_input.append(Target(CAT_PHP_INPU, "$_GET", TYPE_SOURCE, None))
 direct_input.append(Target(CAT_PHP_INPU, "$_POST", TYPE_SOURCE, None))
 direct_input.append(Target(CAT_PHP_INPU, "$_REQUEST", TYPE_SOURCE, None))
-direct_input.append(Target(CAT_PHP_INPU, "$_REQUEST", TYPE_SOURCE, None))
 direct_input.append(Target(CAT_PHP_INPU, "$_COOKIE", TYPE_SOURCE, None))
 direct_input.append(Target(CAT_PHP_INPU, "$_SERVER", TYPE_SOURCE, None))
+direct_input.append(Target(CAT_PHP_INPU, "$_SESSION", TYPE_SOURCE, None))
+direct_input.append(Target(CAT_PHP_INPU, "$_FILES", TYPE_SOURCE, None))
+direct_input.append(Target(CAT_PHP_INPU, "$GLOBALS", TYPE_SOURCE, None))
 
 # Total
 targets = list()
