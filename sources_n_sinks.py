@@ -9,6 +9,7 @@ CAT_DANGEROU = "PHP dangerous functions"
 CAT_FILESYST = "Filesystem related"
 CAT_WP_SPECI = "Wordpress specific"
 CAT_PHP_INPU = "PHP Inputs"
+CAT_PHP_MAGI = "PHP Magic functions"
 
 TYPE_SOURCE = "source"
 TYPE_SINK = "sink"
@@ -208,7 +209,6 @@ filesystem.append(Target(CAT_FILESYST, "show_source(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "php_strip_whitespace(", TYPE_SINK, None))
 filesystem.append(Target(CAT_FILESYST, "get_meta_tags(", TYPE_SINK, None))
 
-#CAT_PHP_INPU
 wordpress_specific = list()
 wordpress_specific.append(Target(CAT_WP_SPECI, "update_site_option(", TYPE_SINK, None))
 wordpress_specific.append(Target(CAT_WP_SPECI, "update_blog_status(", TYPE_SINK, None))
@@ -294,6 +294,23 @@ wordpress_specific.append(Target(CAT_WP_SPECI, "http_request_args(", TYPE_SINK, 
 #wordpress_specific.append(Target(CAT_WP_SPECI, "wp_verify_nonce(", TYPE_SINK, None))
 #wordpress_specific.append(Target(CAT_WP_SPECI, "wp_ajax_nopriv_*(", TYPE_SINK, None))
 
+php_magic = list()
+php_magic.append(Target(CAT_PHP_MAGI, "__call(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__callStatic(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__get(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__set(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__isset(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__unset(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__sleep(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__wakeup(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__toString(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__invoke(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__set_state(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__clone(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__debugInfo(", TYPE_SINK, None))
+php_magic.append(Target(CAT_PHP_MAGI, "__autoloa", TYPE_SINK, None))
+
+
 # Sources
 direct_input = list()
 direct_input.append(Target(CAT_PHP_INPU, "$_GET", TYPE_SOURCE, None))
@@ -315,5 +332,6 @@ targets += dangerous
 targets += filesystem
 targets += wordpress_specific
 targets += direct_input
+targets += php_magic
 
 targets = sorted(targets, key=lambda x: len(x.name), reverse=True)
