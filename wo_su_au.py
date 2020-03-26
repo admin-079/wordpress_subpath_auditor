@@ -177,7 +177,8 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
 
                 if not " function " in line:
                     continue
-
+                if line.strip().startswith("//") or line.strip().startswith("*"):
+                    continue
                 match = fct_decl_regex.search(line)
                 if match:
                     logger.debug("match >" + str(match))
@@ -210,7 +211,7 @@ def main(self, manual_action, disable, subdir, url, whitelisted_functions, cooki
     $WoSuAu_lines = array_slice($WoSuAu_source, $WoSuAu_start_line, $WoSuAu_length); {PHP_DEL}
     foreach ($WoSuAu_lines as $WoSuAu_key => $WoSuAu_element) {{ if (strpos($WoSuAu_element, '{PHP_DEL}') !== false) {{ unset($WoSuAu_lines[$WoSuAu_key]); }} }} {PHP_DEL}
     $WoSuAu_body = implode("", $WoSuAu_lines); {PHP_DEL}
-    {ST}$WoSuAu_e = new Exception(); {PHP_DEL}
+    {ST}$WoSuAu_e = new \Exception(); {PHP_DEL}
     $WoSuAu_log_line = "\\n\\n{JSON_SPLIT}\\n{{"; {PHP_DEL}
     $WoSuAu_log_line = $WoSuAu_log_line . '"fct_name": \"{fct_name}\", '; {PHP_DEL}
     {PA}$WoSuAu_log_line = $WoSuAu_log_line . '"fct_params": "' . base64_encode(json_encode(array({cleaned_params}))) . '",'; {PHP_DEL}
